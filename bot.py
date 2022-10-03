@@ -8,6 +8,7 @@ from aiogram.dispatcher.webhook import SendMessage
 from aiogram.utils.executor import start_webhook
 
 
+VERSION = 1.0
 API_TOKEN = os.environ["TELEGRAM_TOKEN"]
 
 # webhook settings
@@ -28,12 +29,13 @@ dp.middleware.setup(LoggingMiddleware())
 
 @dp.message_handler()
 async def echo(message: types.Message):
+    logging.info(f"{VERSION}: executing echo function...")
     await message.answer(message.text)
 
 
 async def on_startup(dp):
+    logging.info(f"{VERSION}: Set webhook...")
     await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
-    # insert code here to run it after start
 
 
 if __name__ == '__main__':
