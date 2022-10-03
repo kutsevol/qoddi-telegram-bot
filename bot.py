@@ -4,16 +4,15 @@ import logging
 from aiogram import Bot, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.dispatcher import Dispatcher
-from aiogram.dispatcher.webhook import SendMessage
 from aiogram.utils.executor import start_webhook
 
 
-VERSION = 1.0
+VERSION = "Version 1.1"
 API_TOKEN = os.environ["TELEGRAM_TOKEN"]
 
 # webhook settings
 WEBHOOK_HOST = os.environ["WEBHOOK_HOST"]
-WEBHOOK_PATH = f'/webhook/{API_TOKEN}'
+WEBHOOK_PATH = f'/{API_TOKEN}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 # webserver settings
@@ -34,7 +33,7 @@ async def echo(message: types.Message):
 
 
 async def on_startup(dp):
-    logging.info(f"{VERSION}: Set webhook...")
+    logging.info(f"{VERSION}: Set webhook: {WEBHOOK_URL}")
     await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
 
 
